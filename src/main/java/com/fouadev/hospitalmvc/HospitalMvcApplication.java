@@ -5,10 +5,13 @@ import com.fouadev.hospitalmvc.repositories.ConsultationRepository;
 import com.fouadev.hospitalmvc.repositories.MedecinRepository;
 import com.fouadev.hospitalmvc.repositories.PatientRepository;
 import com.fouadev.hospitalmvc.repositories.RendezVousRepository;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
 import java.util.stream.Stream;
@@ -20,6 +23,15 @@ public class HospitalMvcApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(HospitalMvcApplication.class, args);
+    }
+
+    @Bean
+    public LayoutDialect layoutDialect() {
+        return new LayoutDialect();
+    }
+    @Bean
+    public static PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -46,7 +58,7 @@ public class HospitalMvcApplication {
                         medecinRepository.save(medecin);
                     });*/
 
-            Patient patient = patientRepository.findByName("Ali");
+            //Patient patient = patientRepository.findByName("Ali");
 
             Medecin medecin = medecinRepository.findByName("Hanane");
             /*

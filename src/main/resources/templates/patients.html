@@ -1,29 +1,68 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}"
+>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>List Patients</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
 </head>
 <body>
-<h2>Liste patients</h2>
-<table class="table">
-    <thead>
-    <tr>
-        <td>ID</td> <td>Name</td> <td>Malade</td> <td>Date Naissance</td> <td>Actions</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="p:${ListPatients}">
-        <td th:text="${p.id}"></td>
-        <td th:text="${p.name}"></td>
-        <td th:if="${p.malade} == false">no</td>
-        <td th:if="${p.malade} == true">yes</td>
-        <td th:text="${p.dateNaissance}"></td>
-        <td><button class="btn btn-danger">Delete</button></td>
-    </tr>
-    </tbody>
 
-</table>
+<div layout:fragment="content1">
+    <div class="container mt-2">
+        <div class="card">
+            <div class="card-header">
+                <h3>Liste des patients</h3>
+            </div>
+            <div class="card-body">
+                <form th:action="@{index}" method="get">
+                    <label >Key word</label>
+                    <input type="text" name="search" th:value="${search}">
+                    <button type="submit" class="btn btn-primary">search</button>
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Date</th>
+                            <th>Malade</th>
+                            <th>Action</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p:${listPatients}">
+                        <td th:text="${p.id}"></td>
+                        <td th:text="${p.name}"></td>
+                        <td th:text="${p.dateNaissance}"></td>
+                        <td th:text="${p.malade}"></td>
+                        <td>
+                            <a onclick="return confirm('Are you sure want delete it ?')" class="btn btn-danger" th:href="@{delete(id=${p.id} , search=${search}, page=${currentPage} )}">
+                                Delete
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-success" th:href="@{editPatient(id=${p.id}, search=${search}, page=${currentPage})}">
+                                Edit
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ul class="nav nav-pills">
+                    <li th:each="pages,status:${pages}">
+                        <a th:class="${status.index == currentPage ? 'btn btn-info ms-1' : 'btn btn-outline-info ms-1'}"
+                           th:text="${status.index}"
+                           th:href="@{index(page=${status.index}, search=${search})}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
