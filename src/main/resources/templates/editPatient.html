@@ -20,20 +20,20 @@
         <div class="form-group">
             <label for="name">Name :</label>
             <input type="text" class="form-control" th:value="${patient.name}" id="name" name="name">
-            <span th:errors="${patient.name}" style="color: red"></span>
+            <span th:errors="${patient.name}" th:value="${patient.name}" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label for="malade">Malade :</label>
-            <input type="checkbox" th:value="${patient.malade}" id="malade" name="malade">
-            <span th:errors="${patient.malade}" style="color: red"></span>
+            <input type="checkbox" th:checked="${patient.malade}" id="malade" name="malade">
+            <span th:errors="${patient.malade}" th:value="${patient.malade}" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label for="dateNaissance">Date Naissance :</label>
             <input type="date" class="form-control" th:value="${patient.dateNaissance}" id="dateNaissance" name="dateNaissance">
-            <span th:errors="${patient.dateNaissance}" style="color: red"></span>
+            <span th:errors="${patient.dateNaissance}" th:value="${patient.dateNaissance}" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Save Patient</button>
+            <button type="submit" class="btn btn-primary">Edit Patient</button>
         </div>
     </form>
 </div></div>

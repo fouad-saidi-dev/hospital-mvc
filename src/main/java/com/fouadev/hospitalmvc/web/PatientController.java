@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,12 +37,14 @@ public class PatientController {
     }
 
     @GetMapping("/formPatients")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String formPatient(Model model) {
         model.addAttribute("patient",new Patient());
         return "formPatients";
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String save(Model model, @Valid Patient patient, BindingResult bindingResult,
                        @RequestParam(name = "page",defaultValue = "0") int page,
                        @RequestParam(name="keyword",defaultValue = "") String keyword) {
@@ -51,6 +54,7 @@ public class PatientController {
     }
 
     @GetMapping("/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String delete(Long id,String search,int page) {
         patientRepository.deleteById(id);
         return "redirect:/index?page="+page+"&search="+search;
@@ -62,6 +66,7 @@ public class PatientController {
     }
 
     @GetMapping("/editPatient")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String editPatient(Model model,Long id,String keyword,int page) {
         Patient patient = patientRepository.findById(id).orElse(null);
         if (patient == null) throw new RuntimeException("Patient introuvable");
