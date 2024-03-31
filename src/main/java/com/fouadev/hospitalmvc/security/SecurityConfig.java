@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .formLogin(l -> l.loginPage("/login").permitAll())
                 .rememberMe(remember -> remember.key("remember-me"))
                 //.authorizeHttpRequests(ar-> ar.requestMatchers("/delete/**").hasRole("ADMIN"))
-                //.authorizeHttpRequests(a -> a.requestMatchers("/webjars/**","/h2-console/**").permitAll())
+                .authorizeHttpRequests(a -> a.requestMatchers("/webjars/**","/h2-console/**").permitAll())
                 .authorizeHttpRequests(ar -> ar.anyRequest().authenticated())
                 .exceptionHandling(e -> e.accessDeniedPage("/notAuthorized"))
                 .build();
