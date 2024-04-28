@@ -37,14 +37,14 @@ public class PatientController {
     }
 
     @GetMapping("/formPatients")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String formPatient(Model model) {
         model.addAttribute("patient",new Patient());
         return "formPatients";
     }
 
     @PostMapping("/save")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String save(Model model, @Valid Patient patient, BindingResult bindingResult,
                        @RequestParam(name = "page",defaultValue = "0") int page,
                        @RequestParam(name="keyword",defaultValue = "") String keyword) {
@@ -54,7 +54,7 @@ public class PatientController {
     }
 
     @GetMapping("/delete")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String delete(Long id,String search,int page) {
         patientRepository.deleteById(id);
         return "redirect:/index?page="+page+"&search="+search;
@@ -66,7 +66,7 @@ public class PatientController {
     }
 
     @GetMapping("/editPatient")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String editPatient(Model model,Long id,String keyword,int page) {
         Patient patient = patientRepository.findById(id).orElse(null);
         if (patient == null) throw new RuntimeException("Patient introuvable");

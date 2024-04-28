@@ -29,7 +29,7 @@
                             <th>Nom</th>
                             <th>Date</th>
                             <th>Malade</th>
-                            <th>Action</th>
+                            <th th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">Action</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -39,12 +39,12 @@
                         <td th:text="${p.name}"></td>
                         <td th:text="${p.dateNaissance}"></td>
                         <td th:text="${p.malade}"></td>
-                        <td>
+                        <td th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
                             <a onclick="return confirm('Are you sure want delete it ?')" class="btn btn-danger" th:href="@{delete(id=${p.id} , search=${search}, page=${currentPage} )}">
                                 Delete
                             </a>
                         </td>
-                        <td>
+                        <td th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
                             <a class="btn btn-success" th:href="@{editPatient(id=${p.id}, search=${search}, page=${currentPage})}">
                                 Edit
                             </a>
