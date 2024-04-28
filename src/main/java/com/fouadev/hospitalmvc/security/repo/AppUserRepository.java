@@ -1,4 +1,4 @@
-package com.fouadev.hospitalmvc.repositories;
+package com.fouadev.hospitalmvc.security.repo;
 /*
  Created by : Fouad SAIDI on 27/04/2024
  @author : Fouad SAIDI

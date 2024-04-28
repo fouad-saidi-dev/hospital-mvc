@@ -2,8 +2,8 @@ package com.fouadev.hospitalmvc.security.service;
 
 import com.fouadev.hospitalmvc.entities.AppRole;
 import com.fouadev.hospitalmvc.entities.AppUser;
-import com.fouadev.hospitalmvc.repositories.AppRoleRepository;
-import com.fouadev.hospitalmvc.repositories.AppUserRepository;
+import com.fouadev.hospitalmvc.security.repo.AppRoleRepository;
+import com.fouadev.hospitalmvc.security.repo.AppUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
